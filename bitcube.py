@@ -1,17 +1,17 @@
 import uuid, hashlib, sys, random, argparse
 
 colors = ['Orange',
-		  'Green',
-		  'Red',
-		  'Blue',
-		  'White',
-		  'Yellow']
+	  'Green',
+	  'Red',
+	  'Blue',
+	  'White',
+	  'Yellow']
 dictionary = {'O': 1,
-		  	  'G': 2,
-		 	  'R': 3,
-		  	  'B': 4,
-		  	  'W': 5,
-		  	  'Y': 6}
+	      'G': 2,
+	      'R': 3,
+	      'B': 4,
+	      'W': 5,
+	      'Y': 6}
 
 def sumPrevious(generated):
 	copy = generated
