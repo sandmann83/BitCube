@@ -1,3 +1,8 @@
+BitCube.py
+=========
+
+
+
 **Usage**
 ```
 Usage: bitcube.py [-g] [-h] [-c COLORS]
@@ -15,10 +20,26 @@ A move with a tick (') after it means a counterclockwise turn if you were facing
 
 
 Once you finish moving the cube, hold the cube in the beginning orientation. Start with the top left color and write down the first letter of that color.
-Go across that row (so 3 colors), and then down one row, and then across it. Do this for all 3 rows. Turn the cube to the right, so you are now on your right fa
-ce.
+Go across that row (so 3 colors), and then down one row, and then across it. Do this for all 3 rows. Turn the cube to the right, so you are now on your right face.
 Continue writing the 9 colors down for each side. Once you get back to your beginning face, flip the cube to the top side. Write those 9 down, then go to the op posite face.
 
 
-Example if your starting face is ORANGE and your right face is GREEN:
+**Example Output**
+```
+****************************************************
+BE SURE TO WRITE THIS DOWN INCASE YOU LOSE YOUR CUBE
+****************************************************
+
+Color (Facing): ORANGE
+Color (Right): GREEN
+Generated Moves: L L' F L U L U' F R' R F' F' U U' U L R' U L' R' L' L F U U R U U' F L' R' R' L R U R R' F' U
+```
+
+**Example Rotation**
+
+```
+Color (Facing): ORANGE
+Color (Right): GREEN
+
 ORANGE -> GREEN -> RED -> BLUE -> WHITE -> YELLOW
+```
