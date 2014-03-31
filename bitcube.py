@@ -1,17 +1,27 @@
-import uuid, hashlib, sys, random, argparse
+import uuid, hashlib, sys, random, pprint
+from cube import cube
 
-colors = ['Orange',
-		  'Green',
-		  'Red',
-		  'Blue',
-		  'White',
-		  'Yellow']
-dictionary = {'O': 1,
-		  	  'G': 2,
-		 	  'R': 3,
-		  	  'B': 4,
-		  	  'W': 5,
-		  	  'Y': 6}
+colors = ['White', 'Red', 'Blue', 'Orange', 'Green', 'Yellow']
+
+ids = {'W': 0, 'R': 1, 'B': 2, 'O': 3, 'G': 4, 'Y': 5}
+
+opposites = {'W': 'Y', 'Y': 'W', 'G': 'B', 'B': 'G', 'R': 'O', 'O': 'R'}
+
+tops = {'WG': 'R',
+	'GY': 'R',
+	'YB': 'R',
+	'BW': 'R',
+	'WO': 'G',
+	'OY': 'G',
+	'YR': 'G',
+	'RW': 'G',
+	'OG': 'W',
+	'GR': 'W',
+	'RB': 'W',
+	'BO': 'W'}
+
+for t in list(tops):
+	tops[t[::-1]] = opposites[tops[t]]
 
 def sumPrevious(generated):
 	copy = generated
@@ -35,7 +45,7 @@ def allLessThanOrEqual(generated, ceiling):
 	return good
 
 def validColor(color):
-	return color in dictionary.keys()
+	return color in ids.keys()
 
 def generateMoves():
 	possible_moves = ['F', 'L', 'R', 'U', 'D', 'F\'', 'L\'', 'R\'', 'U\'', 'D\''] 
@@ -70,10 +80,10 @@ def generateFaces():
 	elif front_face == "White":
 		while right_face == "Yellow" or front_face == right_face:
 			right_face = random.choice(colors)
-	return [front_face.upper(), right_face.upper()]
+	return [front_face, right_face]
 
 def colorToNumbers(output):
-	return ''.join([str(dictionary[str(number[0])]) for number in list(output)])
+	return ''.join([str(ids[str(number[0])]) for number in list(output)])
 
 def sha256(numbers, mode="numbers"):
 	if mode == "numbers":
@@ -81,6 +91,7 @@ def sha256(numbers, mode="numbers"):
 	else:
 		return hashlib.sha256(b''.join([str(num) for num in numbers])).hexdigest()
 
+'''Deprecated'''
 def displayInformation():
 	print "*" * 52
 	print "F: Front, L: Left, R: Right, U: Up, D: Down (bottom)"
@@ -96,40 +107,55 @@ def displayInformation():
 	print "ORANGE -> GREEN -> RED -> BLUE -> WHITE -> YELLOW"
 	print "*" * 52
 
+'''Deprecated'''
 def displayHelp():
 	print "Usage: bitcube.py [-g] [-h] [-c COLORS]"
 	print "-g 		Generates 36 moves"
 	print "-h 		Displays information about moves"
 	print "-c COLORS	Uses the COLORS string (54 characters long) to generate the Secret Exponent"
 
-args = sys.argv
+def doMoves(cube, moves):
+	moves = moves.split()
+	for move in moves:
+	    if "F" in move:
+	        cube.turn(c.FRONT, "'" not in move)
+	    if "L" in move:
+	        cube.turn(c.LEFT, "'" not in move)
+	    if "R" in move:
+	        cube.turn(c.RIGHT, "'" not in move)
+	    if "U" in move:
+	        cube.turn(c.UP, "'" not in move)
+	    if "D" in move:
+	        cube.turn(c.DOWN, "'" not in move)
+	return cube
 
-if len(args) == 1:
-	displayHelp()
-	sys.exit(1)
+def cubeToString(cube):
+	order = "ULFRBD"
+	colors_string = ""
+	for face in list(order):
+		for i in xrange(0, 3):
+			colors_string += ''.join([list(ids.keys())[list(ids.values()).index(x)] for x in c.cube[face].struc[i]])
+	return colors_string
 
-if "-g" in args:
-	moves = generateMoves()
-	faces = generateFaces()
-	print "*" * 52
-	print "BE SURE TO WRITE THIS DOWN INCASE YOU LOSE YOUR CUBE"
-	print "*" * 52, "\n"
-	print "Color (Facing): %s" % faces[0]
-	print "Color (Right): %s" % faces[1]
-	print "Generated Moves: %s" % moves
+moves = generateMoves()
+faces = generateFaces()
+print "*" * 52
+print "BE SURE TO WRITE THIS DOWN INCASE YOU LOSE YOUR CUBE"
+print "*" * 52, "\n"
+print "Color (Facing): %s" % faces[0]
+print "Color (Right): %s" % faces[1]
+print "Generated Moves: %s" % moves
 
-if "-h" in args:
-	displayInformation()
+colors = [faces[0][0], opposites[faces[0][0]],
+		  opposites[faces[1][0]], faces[1][0],
+		  tops[faces[0][0] + faces[1][0]], opposites[tops[faces[0][0] + faces[1][0]]]]
+colors = [ids[color] for color in colors]
+c = cube(colors)
+c = doMoves(c, moves)
+print c.strCube()
 
-if "-c" in args:
-	colors = args[2]
-	if len(colors) is not 54:
-		print "The length of COLORS must be 54 long (one for each color on the cube)."
-		sys.exit(1)
-	if False in [validColor(color) for color in list(colors)]:
-		print "The only possible colors are O G R B W Y."
-		sys.exit(1)
-	print "Passphrase: %s" % colors
-	print "Secret Exp: %s" % sha256(colors, mode="colors")
-	print "Passphrase: %s" % colorToNumbers(colors)
-	print "Secret Exp: %s" % sha256(colors, mode="numbers")
+colors_string = cubeToString(c)
+print "Passphrase: %s" % colors_string
+print "Secret Exp: %s" % sha256(colors_string, mode="colors")
+print "Passphrase: %s" % colorToNumbers(colors_string)
+print "Secret Exp: %s" % sha256(colors_string, mode="numbers")
