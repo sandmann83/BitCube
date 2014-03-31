@@ -85,11 +85,11 @@ def generateFaces():
 def colorToNumbers(output):
 	return ''.join([str(ids[str(number[0])]) for number in list(output)])
 
-def sha256(numbers, mode="numbers"):
+def sha256(numbers, mode="numbers", salt=""):
 	if mode == "numbers":
-		return hashlib.sha256(b''.join([str(num) for num in colorToNumbers(numbers)])).hexdigest()
+		return hashlib.sha256(b''.join([str(num) for num in colorToNumbers(numbers)]) + salt).hexdigest()
 	else:
-		return hashlib.sha256(b''.join([str(num) for num in numbers])).hexdigest()
+		return hashlib.sha256(b''.join([str(num) for num in numbers]) + salt).hexdigest()
 
 '''Deprecated'''
 def displayInformation():
@@ -149,13 +149,20 @@ print "Generated Moves: %s" % moves
 colors = [faces[0][0], opposites[faces[0][0]],
 		  opposites[faces[1][0]], faces[1][0],
 		  tops[faces[0][0] + faces[1][0]], opposites[tops[faces[0][0] + faces[1][0]]]]
+
+for color in colors:
+	ids[color] = colors.index(color)
 colors = [ids[color] for color in colors]
+
 c = cube(colors)
 c = doMoves(c, moves)
+
 print c.strCube()
 
+import getpass
+password = getpass.getpass("  Password: ")
+
 colors_string = cubeToString(c)
-print "Passphrase: %s" % colors_string
-print "Secret Exp: %s" % sha256(colors_string, mode="colors")
-print "Passphrase: %s" % colorToNumbers(colors_string)
-print "Secret Exp: %s" % sha256(colors_string, mode="numbers")
+print "    Colors: %s" % colors_string
+print " Encrypted: %s" % colorToNumbers(colors_string)
+print "Secret Exp: %s" % sha256(colors_string, mode="numbers", salt=password)
