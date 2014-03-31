@@ -1,39 +1,24 @@
 import uuid, hashlib, sys, random, pprint
 from cube import cube
 
-colors = ['White',
-		  'Red',
-		  'Blue',
-		  'Orange',
-		  'Green',
-		  'Yellow']
+colors = ['White', 'Red', 'Blue', 'Orange', 'Green', 'Yellow']
 
-ids = {'W': 0,
-  	   'R': 1,
- 	   'B': 2,
-   	   'O': 3,
-   	   'G': 4,
-   	   'Y': 5}
+ids = {'W': 0, 'R': 1, 'B': 2, 'O': 3, 'G': 4, 'Y': 5}
 
-opposites = {'W': 'Y',
-			 'Y': 'W',
-			 'G': 'B',
-			 'B': 'G',
-			 'R': 'O',
-			 'O': 'R'}
+opposites = {'W': 'Y', 'Y': 'W', 'G': 'B', 'B': 'G', 'R': 'O', 'O': 'R'}
 
 tops = {'WG': 'R',
-		'GY': 'R',
-		'YB': 'R',
-		'BW': 'R',
-		'WO': 'G',
-		'OY': 'G',
-		'YR': 'G',
-		'RW': 'G',
-		'OG': 'W',
-		'GR': 'W',
-		'RB': 'W',
-		'BO': 'W'}
+	'GY': 'R',
+	'YB': 'R',
+	'BW': 'R',
+	'WO': 'G',
+	'OY': 'G',
+	'YR': 'G',
+	'RW': 'G',
+	'OG': 'W',
+	'GR': 'W',
+	'RB': 'W',
+	'BO': 'W'}
 
 for t in list(tops):
 	tops[t[::-1]] = opposites[tops[t]]
