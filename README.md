@@ -12,6 +12,8 @@ Each letter corresponds with a clockwise turn if you were facing that side.
 A move with a tick (') after it means a counterclockwise turn if you were facing that side.
 
 
+Thanks to an open source Python Rubik's Cube implementation that I slimmed down. No author to give credit to, so here it is: http://pastebin.com/KwGMujyB.
+
 **Example Output**
 ```
 $ ./bitcube.py
