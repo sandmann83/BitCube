@@ -23,22 +23,23 @@ $ ./bitcube.py
 BE SURE TO WRITE THIS DOWN INCASE YOU LOSE YOUR CUBE
 ****************************************************
 
-Color (Facing): Green
+Color (Facing): Red
 Color (Right): White
-Generated Moves: F U D U R' R' U F F' F' R U' R F' L L R L' U F R' F L U' R R U' U L' U L U' U F U' R U' F' D
+Generated Moves: R R' U' L' R' D R' L' F D U' U U R' D' L' L' F D' R F' L' F' R'
+ D D' D L R R R L' R U U' F' U U' D
 
-        O G B
-        O O B
-        R G Y
- G Y W  G W R  G Y W  R R Y
- O Y O  G G W  B W R  B B B
- R W G  O G O  B Y O  Y W Y
-        W Y W
-        R R R
-        B O B
+        Y B B
+        R G B
+        G B B
+ B Y O  Y W W  R R O  W Y O
+ O Y G  R R O  Y W O  W O G
+ B Y G  W B W  G R R  Y W R
+        R O O
+        G B W
+        Y G G
 
-Passphrase: OGBOOBRGYGYWOYORWGGWRGGWOGOGYWBWRBYORRYBBBYWYWYWRRRBOB
-Secret Exp: b7b1f65cbbd682de37735cb9df932007752641532c4ad8ef510c1eadc85a6106
-Passphrase: 342332145450353104401440343450201253115222505050111232
-Secret Exp: e87fa90c573e0ab615fff08fbad14d1099d233066bb927fd489018a7e5e6fe05
+Birth Year: 1989
+    Colors: YBBRGBGBBBYOOYGBYGYWWRROWBWRROYWOGRRWYOWOGYWRROOGBWYGG
+ Encrypted: 522142422253354254500113020113503411053034501133420544
+Secret Exp: 7ba4c9f3c26b89051a8a7ebcc1b30083643f3c5a0394eb24dd8aa5745c1035a1
 ```
