@@ -149,9 +149,6 @@ print "Generated Moves: %s" % moves
 colors = [faces[0][0], opposites[faces[0][0]],
 		  opposites[faces[1][0]], faces[1][0],
 		  tops[faces[0][0] + faces[1][0]], opposites[tops[faces[0][0] + faces[1][0]]]]
-
-for color in colors:
-	ids[color] = colors.index(color)
 colors = [ids[color] for color in colors]
 
 c = cube(colors)
