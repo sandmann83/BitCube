@@ -157,7 +157,7 @@ c = doMoves(c, moves)
 print c.strCube()
 
 import getpass
-password = getpass.getpass("  Password: ")
+password = getpass.getpass("Birth Year: ")
 
 colors_string = cubeToString(c)
 print "    Colors: %s" % colors_string
